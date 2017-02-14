@@ -1,6 +1,8 @@
 var express = require('express'),
     router = express.Router();
-var http = require('http');
+
+var request = require('request');
+
 var db = require("../db");
 
 const beacons = db.get('beacons');
@@ -14,31 +16,19 @@ router.get('/', function (req, res) {
     });
 });
 
-router.get('/sync', function(req, res){
+router.get('/sync', function (req, res) {
     beacons_version.drop();
     beacons.drop();
-    download_version(function(version_data){
-        console.log(version_data);
-    });
+    request('http://minrva-dev.library.illinois.edu:8080/estimote/rest/v1.0/version', function (error, response, body) {
+        if (!error && response.statusCode == 200) {
+            console.log(body) // Show the HTML for the Google homepage.
+        }
 
+    });
+    res.status(200).send({
+        success: true,
+        message: "Sync completed."
+    });
 });
-
-function download_version(callback){
-    http.request({
-        host: 'minrva-dev.library.illinois.edu',
-        path: '/estimote/rest/v1.0/version',
-        port: '8080',
-        method: 'GET'
-    }, function (res) {
-        var body = '';
-        res.on('data', function(d) {
-            body += d;
-        });
-        res.on('end', function() {
-            var parsed = JSON.parse(body);
-            callback(parsed);
-        });
-    });
-}
 
 module.exports = router;
