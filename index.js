@@ -1,5 +1,11 @@
 var express = require('express');
 var app = express();
+const DB = require('./db');
+
+DB.conn(function (db) {
+    console.log("Successfully connected to MongoDB");
+    db.close();
+});
 
 app.set('port', (process.env.PORT || 5000));
 
@@ -8,6 +14,6 @@ app.use(express.static('public'));
 
 app.use('/api', require('./api/index.js'));
 
-app.listen(app.get('port'), function() {
-  console.log('Node app is running on port', app.get('port'));
+app.listen(app.get('port'), function () {
+    console.log('Node app is running on port', app.get('port'));
 });
