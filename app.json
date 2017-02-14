@@ -1,0 +1,8 @@
+{
+  "name": "beacon-res",
+  "description": "Backend server for Beacon sampling and testing.",
+  "repository": "https://github.com/mewim/beacon-res",
+  "logo": "http://node-js-sample.herokuapp.com/node.svg",
+  "keywords": ["node", "express"],
+  "image": "heroku/nodejs"
+}
