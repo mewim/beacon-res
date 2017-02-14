@@ -7,3 +7,5 @@ router.get('/', function (req, res) {
                 message: "APIs are up and running."
             });
 });
+
+module.exports = router;
