@@ -5,10 +5,6 @@ var request = require('request');
 
 var DB = require("../db");
 
-const beacons = db.get('beacons');
-const beacons_version = db.get('beacons_version');
-
-
 router.get('/', function (req, res) {
     res.status(200).send({
         success: true,
