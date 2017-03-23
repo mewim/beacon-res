@@ -1,5 +1,7 @@
 var express = require('express');
 var app = express();
+var bodyParser = require('body-parser')
+
 const DB = require('./db');
 
 DB.conn(function (db) {
@@ -8,6 +10,8 @@ DB.conn(function (db) {
 });
 
 app.set('port', (process.env.PORT || 5000));
+
+app.use(bodyParser.json());
 
 // Serve static assets from the /public folder
 app.use(express.static('public'));
