@@ -13,12 +13,23 @@ router.get('/', function (req, res) {
 });
 
 router.post('/', function (req, res) {
-    console.log(req.body);
-
-    // DB.conn(function (db) {
-    // });
-    res.status(200).send({
-        success: true,
+    DB.conn(function (db) {
+        var samples = db.collection('samples');
+        samples.insert(req.body, function (error, result) {
+            if (error) {
+                res.status(500).send({
+                    success: false,
+                    message: error
+                });
+            }
+            else {
+                res.status(200).send({
+                    success: true,
+                    message: "Sample saved."
+                });
+            }
+            db.close();
+        });
     });
 });
 
