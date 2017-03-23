@@ -11,7 +11,7 @@ DB.conn(function (db) {
 
 app.set('port', (process.env.PORT || 5000));
 
-app.use(bodyParser.json());
+app.use(bodyParser.json({limit: '50mb'}));
 
 // Serve static assets from the /public folder
 app.use(express.static('public'));
