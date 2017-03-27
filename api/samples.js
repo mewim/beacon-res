@@ -13,21 +13,13 @@ router.get('/', function (req, res) {
 });
 
 router.post('/', function (req, res) {
+    res.status(200).send({
+        success: true,
+        message: "Sample received."
+    });
     DB.conn(function (db) {
         var samples = db.collection('samples');
         samples.insert(req.body, function (error, result) {
-            if (error) {
-                res.status(500).send({
-                    success: false,
-                    message: error
-                });
-            }
-            else {
-                res.status(200).send({
-                    success: true,
-                    message: "Sample saved."
-                });
-            }
             db.close();
         });
     });
